@@ -65,6 +65,30 @@ class Program
 
     static void Task1()
     {
+        class LineLandMigration
+    {
+        static void Main()
+        {
+            int N = int.Parse(Console.ReadLine());
+            int[] prices = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+            int[] result = new int[N];
+
+            for (int i = 0; i < N; i++)
+            {
+                result[i] = -1; // по умолчанию
+                for (int j = i + 1; j < N; j++)
+                {
+                    if (prices[j] < prices[i])
+                    {
+                        result[i] = j;
+                        break; // нашли первый подходящий город справа
+                    }
+                }
+            }
+
+            // вывод результата
+            Console.WriteLine(string.Join(" ", result));
+        }
     }
 
     static void Task2()
