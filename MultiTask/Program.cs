@@ -314,6 +314,46 @@ class Program
 
     static void Task4()
     {
+        //Карты вводим в строку через пробел(1 3 5 7 9)
+        Queue<int> firstPlayer = new Queue<int>();
+        Queue<int> secondPlayer = new Queue<int>();
+
+        // Читаем карты каждого игрока
+        foreach (var card in Console.ReadLine().Split())
+            firstPlayer.Enqueue(int.Parse(card));
+        foreach (var card in Console.ReadLine().Split())
+            secondPlayer.Enqueue(int.Parse(card));
+
+        int moves = 0;
+        const int maxMoves = 100;
+
+        while (firstPlayer.Count > 0 && secondPlayer.Count > 0 && moves < maxMoves)
+        {
+            moves++;
+            int card1 = firstPlayer.Dequeue();
+            int card2 = secondPlayer.Dequeue();
+
+            if (card1 > card2)
+            {
+                // Первый игрок выигрывает раунд
+                firstPlayer.Enqueue(card1);
+                firstPlayer.Enqueue(card2);
+            }
+            else
+            {
+                // Второй игрок выигрывает раунд
+                secondPlayer.Enqueue(card2);
+                secondPlayer.Enqueue(card1);
+            }
+        }
+
+        // Определяем победителя
+        if (firstPlayer.Count == 0)
+            Console.WriteLine("second");
+        else
+            Console.WriteLine("first");
+
+        Console.WriteLine(moves);
     }
 
     static void Task5()
