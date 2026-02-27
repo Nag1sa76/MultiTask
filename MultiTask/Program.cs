@@ -171,6 +171,145 @@ class Program
 
     static void Task3()
     {
+        string input = Console.ReadLine();
+        string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        double[] coefficients = new double[parts.Length];
+
+        for (int i = 0; i < parts.Length; i++)
+        {
+            coefficients[i] = double.Parse(parts[i]);
+        }
+
+        double[] roots = Solve(coefficients);
+        Print(roots);
+    }
+
+    static double[] Solve(params double[] coefficients)
+    {
+        // Количество коэффициентов определяет тип уравнения
+        if (coefficients.Length == 3)
+        {
+            // Квадратное: a, b, c
+            double a = coefficients[0];
+            double b = coefficients[1];
+            double c = coefficients[2];
+
+            if (a == 0)
+            {
+                if (b == 0)
+                {
+                    // c=0 -> уравнение 0=0, бесконечно много решений, по условию вывести ничего
+                    return new double[0];
+                }
+                else
+                {
+                    // bx + c=0
+                    double root = -c / b;
+                    return new double[] { root };
+                }
+            }
+
+            // Решение квадратного уравнения
+            double D = b * b - 4 * a * c;
+            if (D < 0)
+            {
+                return new double[0]; // нет решений
+            }
+            else if (D == 0)
+            {
+                double root = -b / (2 * a);
+                return new double[] { root };
+            }
+            else
+            {
+                double sqrtD = Math.Sqrt(D);
+                double x1 = (-b - sqrtD) / (2 * a);
+                double x2 = (-b + sqrtD) / (2 * a);
+                if (x1 < x2)
+                    return new double[] { x1, x2 };
+                else
+                    return new double[] { x2, x1 };
+            }
+        }
+        else if (coefficients.Length == 2)
+        {
+            // Линейное: b, c
+            double b = coefficients[0];
+            double c = coefficients[1];
+
+            if (b == 0)
+            {
+                // Уравнение c=0
+                if (c == 0)
+                {
+                    // Любое число — корень (бесконечное много решений)
+                    return new double[0]; // по условию, возвращаем пустой массив
+                }
+                else
+                {
+                    // Нет решений
+                    return new double[0];
+                }
+            }
+            else
+            {
+                double root = -c / b;
+                return new double[] { root };
+            }
+        }
+        else if (coefficients.Length == 1)
+        {
+            // Константа c
+            double c = coefficients[0];
+            if (c == 0)
+            {
+                // либо бесконечно много решений, либо 0=0
+                return new double[0];
+            }
+            else
+            {
+                // Нет решений
+                return new double[0];
+            }
+        }
+        else
+        {
+            return new double[0];
+        }
+    }
+
+    static void Print(params double[] roots)
+    {
+        if (roots.Length == 0)
+        {
+            Console.WriteLine();
+            return;
+        }
+
+        Array.Sort(roots);
+
+        for (int i = 0; i < roots.Length; i++)
+        {
+            Console.Write(roots[i]);
+            if (i < roots.Length - 1)
+                Console.Write(" ");
+        }
+        Console.WriteLine();
+        // Пример ввода:
+        // 1 -3 2
+        // Выходит:
+        // 1 2
+        //
+        // Другие примеры:
+        //
+        // 0 2
+        // Вывод: 0
+        //
+        // 5
+        // Вывод: ничего (пустая строка)
+        //
+        // 0 0 0
+        // Вывод: ничего (бесконечно много решений, часть условий обработает это)
     }
 
     static void Task4()
