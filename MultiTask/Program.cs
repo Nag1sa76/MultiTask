@@ -65,34 +65,108 @@ class Program
 
     static void Task1()
     {
-        class LineLandMigration
-    {
-        static void Main()
-        {
-            int N = int.Parse(Console.ReadLine());
-            int[] prices = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            int[] result = new int[N];
+        // Реализация программы поиска ближайшего меньшего справа элемента
+        Console.WriteLine("Введите количество городов:");
+        int N = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите цены:");
+        int[] prices = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+        int[] result = new int[N];
 
-            for (int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
+        {
+            result[i] = -1; // по умолчанию
+            for (int j = i + 1; j < N; j++)
             {
-                result[i] = -1; // по умолчанию
-                for (int j = i + 1; j < N; j++)
+                if (prices[j] < prices[i])
                 {
-                    if (prices[j] < prices[i])
-                    {
-                        result[i] = j;
-                        break; // нашли первый подходящий город справа
-                    }
+                    result[i] = j;
+                    break; // нашли первый подходящий город справа
                 }
             }
-
-            // вывод результата
-            Console.WriteLine(string.Join(" ", result));
         }
+
+        // вывод результата
+        Console.WriteLine(string.Join(" ", result));
     }
 
     static void Task2()
     {
+        Queue<int> queue = new Queue<int>();
+        string input;
+
+        while (true)
+        {
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
+                continue;
+
+            string[] parts = input.Split();
+            string command = parts[0];
+
+            switch (command)
+            {
+                case "push":
+                    if (parts.Length == 2 && int.TryParse(parts[1], out int n))
+                    {
+                        queue.Enqueue(n);
+                        Console.WriteLine("ok");
+                    }
+                    break;
+
+                case "pop":
+                    if (queue.Count > 0)
+                    {
+                        int val = queue.Dequeue();
+                        Console.WriteLine(val);
+                    }
+                    else
+                    {
+                        Console.WriteLine("error");
+                    }
+                    break;
+
+                case "front":
+                    if (queue.Count > 0)
+                    {
+                        Console.WriteLine(queue.Peek());
+                    }
+                    else
+                    {
+                        Console.WriteLine("error");
+                    }
+                    break;
+
+                case "size":
+                    Console.WriteLine(queue.Count);
+                    break;
+
+                case "clear":
+                    queue.Clear();
+                    Console.WriteLine("ok");
+                    break;
+
+                case "exit":
+                    Console.WriteLine("bye");
+                    return;
+
+                default:
+                    // Неизвестная команда, можно игнорировать или выводить ошибку
+                    break;
+            }
+        }
+        //ok            // после push 5
+        //ok            // после push 10
+        //5             // front — первый элемент 5
+        //2             // size — осталось два элемента [5,10]
+        //5             // pop — извлекаем 5
+        //10            // pop — извлекаем 10
+        //error         // pop — очередь пуста, ошибка
+        //ok            // push 20
+        //20            // front — первый элемент 20
+        //1             // size — один элемент
+        //ok            // clear — очищаем очередь
+        //0             // size — очередь пустая
+        //bye           // команда exit — завершаем программу
     }
 
     static void Task3()
