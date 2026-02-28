@@ -380,7 +380,46 @@ class Program
     }
 
     static void Task7()
+        //5
+        //3
+        //1 2
+        //2 3
+        //4 5
+        //У графа 5 вершин, 3 ребра, ребра соединяют вершины 1 и 2, 2 и 3, 4 и 5
     {
+        Console.WriteLine("Введите число вершин и рёбер:");
+        int N = int.Parse(Console.ReadLine());
+        int M = int.Parse(Console.ReadLine());
+
+        // Создаем список смежности
+        List<int>[] adj = new List<int>[N + 1];
+        for (int i = 1; i <= N; i++)
+            adj[i] = new List<int>();
+
+        Console.WriteLine("Введите рёбра (по одному в строке: u v):");
+        for (int i = 0; i < M; i++)
+        {
+            string[] parts = Console.ReadLine().Split();
+            int u = int.Parse(parts[0]);
+            int v = int.Parse(parts[1]);
+
+            adj[u].Add(v);
+            adj[v].Add(u);
+        }
+
+        bool[] visited = new bool[N + 1];
+        int countComponents = 0;
+
+        for (int i = 1; i <= N; i++)
+        {
+            if (!visited[i])
+            {
+                DFS(i, adj, visited);
+                countComponents++;
+            }
+        }
+
+        Console.WriteLine($"Количество компонентов связности: {countComponents}");
     }
 
     static void Task8()
@@ -411,6 +450,26 @@ class Program
         public override string ToString()
         {
             return $"Rectangle {Width}x{Height}";
+        }
+    }
+
+    static void DFS(int start, List<int>[] adj, bool[] visited)
+    {
+        Stack<int> stack = new Stack<int>();
+        stack.Push(start);
+        visited[start] = true;
+
+        while (stack.Count > 0)
+        {
+            int v = stack.Pop();
+            foreach (var neighbor in adj[v])
+            {
+                if (!visited[neighbor])
+                {
+                    visited[neighbor] = true;
+                    stack.Push(neighbor);
+                }
+            }
         }
     }
 }
