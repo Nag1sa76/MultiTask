@@ -355,9 +355,24 @@ class Program
 
         Console.WriteLine(moves);
     }
-
     static void Task5()
     {
+        RunRectangleTask(); // 5 3
+    }
+
+    static void RunRectangleTask()
+    {
+        string input = Console.ReadLine();
+        string[] parts = input.Split();
+
+        int width = int.Parse(parts[0]);
+        int height = int.Parse(parts[1]);
+
+        Rectangle rect = new Rectangle(width, height);
+
+        Console.WriteLine(rect.GetArea());
+        Console.WriteLine(rect.GetPerimeter());
+        Console.WriteLine(rect.ToString());
     }
 
     static void Task6()
@@ -370,5 +385,32 @@ class Program
 
     static void Task8()
     {
+    }
+
+    class Rectangle
+    {
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+
+        public Rectangle(int width, int height)
+        {
+            Width = width;
+            Height = height;
+        }
+
+        public int GetArea()
+        {
+            return Width * Height;
+        }
+
+        public int GetPerimeter()
+        {
+            return 2 * (Width + Height);
+        }
+
+        public override string ToString()
+        {
+            return $"Rectangle {Width}x{Height}";
+        }
     }
 }
