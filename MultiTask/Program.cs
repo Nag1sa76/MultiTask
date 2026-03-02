@@ -66,9 +66,9 @@ class Program
     static void Task1()
     {
         // Реализация программы поиска ближайшего меньшего справа элемента
-        Console.WriteLine("Введите количество городов:");
+        Console.Write("Введите количество городов: ");
         int N = int.Parse(Console.ReadLine());
-        Console.WriteLine("Введите цены:");
+        Console.WriteLine("Введите цены через пробел:");
         int[] prices = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
         int[] result = new int[N];
 
@@ -86,6 +86,7 @@ class Program
         }
 
         // вывод результата
+        Console.WriteLine("Результат:");
         Console.WriteLine(string.Join(" ", result));
     }
 
@@ -96,6 +97,7 @@ class Program
 
         while (true)
         {
+            Console.Write("Введите команду: ");
             input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
                 continue;
@@ -171,6 +173,7 @@ class Program
 
     static void Task3()
     {
+        Console.Write("Введите коэффициенты уравнения через пробел: ");
         string input = Console.ReadLine();
         string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         double[] coefficients = new double[parts.Length];
@@ -315,12 +318,15 @@ class Program
     static void Task4()
     {
         //Карты вводим в строку через пробел(1 3 5 7 9)
+        Console.Write("Введите карты каждого игрока через пробел: ");
         Queue<int> firstPlayer = new Queue<int>();
         Queue<int> secondPlayer = new Queue<int>();
 
         // Читаем карты каждого игрока
+        Console.WriteLine("Карты первого игрока:");
         foreach (var card in Console.ReadLine().Split())
             firstPlayer.Enqueue(int.Parse(card));
+        Console.WriteLine("Карты второго игрока:");
         foreach (var card in Console.ReadLine().Split())
             secondPlayer.Enqueue(int.Parse(card));
 
@@ -357,6 +363,7 @@ class Program
     }
     static void Task5()
     {
+        Console.Write("Введите ширину и высоту прямоугольника через пробел: ");
         RunRectangleTask(); // 5 3
     }
 
@@ -377,14 +384,21 @@ class Program
 
     static void Task6()
     {
+        Console.WriteLine("Введите размеры поля в формате: <число_строк> <число_столбцов>");
+        Console.Write("Размеры: ");
         string[] sizes = Console.ReadLine().Split();
+
         int n = int.Parse(sizes[0]);
         int m = int.Parse(sizes[1]);
 
         int[,] w = new int[n, m];
+
+        Console.WriteLine($"Введите {n} строк по {m} чисел в каждой (через пробел):");
         for (int i = 0; i < n; i++)
         {
+            Console.Write($"Строка {i + 1}: ");
             string[] rowInput = Console.ReadLine().Split();
+
             for (int j = 0; j < m; j++)
             {
                 w[i, j] = int.Parse(rowInput[j]);
@@ -395,7 +409,7 @@ class Program
 
         f[0, 0] = w[0, 0];
 
-        // Заполняем первую колонку - минимальная сумма пути, движаясь только вниз
+        // Заполняем первую колонку - минимальная сумма пути, движась только вниз
         for (int i = 1; i < n; i++)
         {
             f[i, 0] = f[i - 1, 0] + w[i, 0]; // сумма пути сверху до текущей ячейки
@@ -417,9 +431,9 @@ class Program
             }
         }
 
-        Console.WriteLine(f[n - 1, m - 1]);
+        Console.WriteLine($"Минимальная сумма пути: {f[n - 1, m - 1]}");
     }
-
+    кол
     static void Task7()
         //5
         //3
