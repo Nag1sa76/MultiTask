@@ -377,6 +377,47 @@ class Program
 
     static void Task6()
     {
+        string[] sizes = Console.ReadLine().Split();
+        int n = int.Parse(sizes[0]);
+        int m = int.Parse(sizes[1]);
+
+        int[,] w = new int[n, m];
+        for (int i = 0; i < n; i++)
+        {
+            string[] rowInput = Console.ReadLine().Split();
+            for (int j = 0; j < m; j++)
+            {
+                w[i, j] = int.Parse(rowInput[j]);
+            }
+        }
+
+        int[,] f = new int[n, m];
+
+        f[0, 0] = w[0, 0];
+
+        // Заполняем первую колонку - минимальная сумма пути, движаясь только вниз
+        for (int i = 1; i < n; i++)
+        {
+            f[i, 0] = f[i - 1, 0] + w[i, 0]; // сумма пути сверху до текущей ячейки
+        }
+
+        // Заполняем первую строку - минимальная сумма пути, движась только вправо
+        for (int j = 1; j < m; j++)
+        {
+            f[0, j] = f[0, j - 1] + w[0, j]; // сумма пути слева до текущей ячейки
+        }
+
+        // Заполняем остальные ячейки, выбирая минимальный из двух вариантов (сверху или слева)
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = 1; j < m; j++)
+            {
+                // минимальный путь — это минимум из пути сверху и слева, плюс текущий вес
+                f[i, j] = Math.Min(f[i - 1, j], f[i, j - 1]) + w[i, j];
+            }
+        }
+
+        Console.WriteLine(f[n - 1, m - 1]);
     }
 
     static void Task7()
