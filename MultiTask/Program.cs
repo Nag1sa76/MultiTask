@@ -7,14 +7,14 @@ class Program
         while (true)
         {
             Console.WriteLine("Выберите задачу:");
-            Console.WriteLine("1. Задача 1");
-            Console.WriteLine("2. Задача 2");
-            Console.WriteLine("3. Задача 3");
-            Console.WriteLine("4. Задача 4");
-            Console.WriteLine("5. Задача 5");
-            Console.WriteLine("6. Задача 6");
-            Console.WriteLine("7. Задача 7");
-            Console.WriteLine("8. Задача 8");
+            Console.WriteLine("1. Задача про Лайнландию");
+            Console.WriteLine("2. Работа с очередями");
+            Console.WriteLine("3. Калькулятор квадратных уравнений");
+            Console.WriteLine("4. Карточная игра");
+            Console.WriteLine("5. Работа с классом Прямоугольник");
+            Console.WriteLine("6. Поиск минимального веса");
+            Console.WriteLine("7. Подсчет компонентов связности");
+            Console.WriteLine("8. Кафе с системой скидок(не реализовано)");
             Console.WriteLine("0. Выход");
 
             Console.Write("Введите номер: ");
@@ -433,7 +433,7 @@ class Program
 
         Console.WriteLine($"Минимальная сумма пути: {f[n - 1, m - 1]}");
     }
-    кол
+
     static void Task7()
         //5
         //3
@@ -479,6 +479,7 @@ class Program
 
     static void Task8()
     {
+        Console.WriteLine("Не реализовано");
     }
 
     class Rectangle
